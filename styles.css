@@ -458,3 +458,19 @@ details p { padding: 0 56px 28px 0; color: var(--muted); }
 .mode .toggle.is-on { background: var(--magenta); }
 .barrio-label span { display: block; transform: translate(-50%, -50%); white-space: nowrap; font: 600 10px/1 var(--sans); color: #4a3a46; text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff; pointer-events: none; }
 .maxline.pending { color: var(--magenta); font-weight: 500; }
+
+.nav { gap: 24px; }
+.nav a[aria-current="page"]:not(.btn) { color: var(--magenta); }
+.nav a[aria-current="page"]:not(.btn)::after { right: 0; }
+@media (max-width: 1060px) {
+  .nav {
+    position: fixed; inset: 76px 0 auto 0; background: var(--bg); flex-direction: column; align-items: stretch; gap: 0;
+    padding: 12px 20px 28px; border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -24px rgba(42, 22, 38, .45);
+    transform: translateY(-12px); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s var(--ease);
+  }
+  .nav.open { transform: none; opacity: 1; pointer-events: auto; }
+  .nav a:not(.btn) { padding: 16px 4px; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
+  .nav a:not(.btn)::after { display: none; }
+  .nav .btn { margin-top: 18px; }
+  .burger { display: block; }
+}

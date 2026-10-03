@@ -14,7 +14,7 @@
     { name: "La Orden",                                     price: 1384, m: 2.3,  t: 6.9,   a: 11.4, max: "1.384 €/m² (sep 2026)", maxv: 0 }
   ];
 
-  var fmt = function (n) { return n.toLocaleString("es-ES"); };
+  var fmt = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); };
   var pctTxt = function (v) { return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1).replace(".", ",") + " %"; };
   var pct = function (v) {
     if (v === null) return '<span class="nd">n.d.</span>';
