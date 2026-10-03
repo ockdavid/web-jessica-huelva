@@ -135,7 +135,7 @@ input[type=range]:focus-visible { outline: 3px solid var(--fucsia); outline-offs
 .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal.open { display: flex; }
 .modal-back { position: absolute; inset: 0; background: rgba(42, 22, 38, .66); backdrop-filter: blur(4px); animation: fadeIn .3s; }
-.modal-box { position: relative; background: var(--bg); border-radius: 28px; max-width: 980px; width: 100%; max-height: calc(100vh - 40px); overflow: auto; display: grid; grid-template-columns: .9fr 1.1fr; box-shadow: 0 40px 90px -20px rgba(0, 0, 0, .5); animation: pop .4s var(--ease); }
+.modal-box { position: relative; background: var(--bg); border-radius: 28px; max-width: 980px; width: 100%; max-height: calc(100vh - 40px); max-height: calc(100dvh - 40px); overflow: hidden; display: flex; box-shadow: 0 40px 90px -20px rgba(0, 0, 0, .5); animation: pop .4s var(--ease); }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pop { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
 .modal-foto { position: relative; min-height: 320px; background: var(--bg-soft); }
@@ -184,4 +184,23 @@ input[type=range]:focus-visible { outline: 3px solid var(--fucsia); outline-offs
   .radar-wrap { margin-top: -48px; padding: 0 14px; }
   .modal { padding: 0; align-items: flex-end; }
   .modal-box { border-radius: 24px 24px 0 0; max-height: 94vh; }
+}
+
+/* Detalle de operación: la X queda fuera de la zona con scroll y nada se sale de la pantalla */
+.modal-scroll { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); max-height: inherit; }
+.modal-info { min-width: 0; overflow-wrap: anywhere; }
+.ficha { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.tabla-op td:first-child { padding-right: 12px; overflow-wrap: anywhere; }
+.modal-close { position: absolute; }
+@media (max-width: 1000px) {
+  .modal-scroll { grid-template-columns: minmax(0, 1fr); }
+  .ficha { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .modal-box { max-height: 94vh; max-height: 94dvh; }
+}
+
+.tabla-op td:last-child { white-space: nowrap; }
+@media (max-width: 1000px) {
+  .modal-foto { aspect-ratio: auto; height: clamp(200px, 38vh, 300px); min-height: 0; width: 100%; }
 }

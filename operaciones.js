@@ -211,6 +211,7 @@
     var m = $("modal");
     m.classList.add("open"); m.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+    $("m-scroll").scrollTop = 0; $("m-scroll").scrollLeft = 0;
     m.querySelector(".modal-close").focus();
   }
   function cierra() {
@@ -235,6 +236,11 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
+
+  /* Al salir de la web y volver (móvil), cerramos el detalle para que la página no quede bloqueada */
+  document.addEventListener("visibilitychange", function () { if (document.hidden && $("modal").classList.contains("open")) cierra(); });
+  window.addEventListener("pagehide", function () { if ($("modal").classList.contains("open")) cierra(); });
+  window.addEventListener("pageshow", function (e) { if (e.persisted && $("modal").classList.contains("open")) cierra(); });
 
   $("filtros").addEventListener("click", function (e) {
     var b = e.target.closest("button");
