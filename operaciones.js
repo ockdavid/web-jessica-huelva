@@ -9,7 +9,7 @@
      Fotos: poner el archivo en assets/ops/ y rellenar  foto: "nombre.webp".
      tipo "alquiler": compra, itp, notarias, reforma, gestion (comisiones de intermediarios
        y otros gastos), fin {pct, interes, plazo}, rentaMes, gastos [[concepto, €/año]].
-       brutaSobreVivienda: true  -> la bruta se calcula sin "gestion" (como en la calculadora Nexia).
+       brutaSobreVivienda: true  -> la bruta se calcula sin "gestion".
      tipo "flip": escenarios [{nombre, venta, reforma, gastosTotales, beneficio, irpf}].
      ===================================================================== */
 
