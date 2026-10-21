@@ -92,6 +92,29 @@
     render(0);
   }
 
+  /* Menú: marca solo el apartado que se está viendo (solo en la home) */
+  function initSpy() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[href*="#"]')).map(function (a) {
+      var id = a.getAttribute("href").split("#")[1];
+      return { a: a, sec: id && id !== "top" ? document.getElementById(id) : null };
+    }).filter(function (x) { return x.sec; });
+    if (!links.length) return;
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var activo = null;
+      links.forEach(function (x) {
+        var r = x.sec.getBoundingClientRect();
+        if (r.top <= 140 && r.bottom > 140) activo = x;
+      });
+      links.forEach(function (x) {
+        if (x === activo) x.a.setAttribute("aria-current", "page"); else x.a.removeAttribute("aria-current");
+      });
+    };
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+
   function initYear() {
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
@@ -101,5 +124,6 @@
   safe(initNav, "nav");
   safe(initReveal, "reveal");
   safe(initTimeline, "timeline");
+  safe(initSpy, "spy");
   safe(initYear, "year");
 })();

@@ -13,13 +13,14 @@
     { name: "El Carmen - Cardeñas",                         price: 1451, m: null, t: null,  a: null, max: null, maxv: null,
       nota: "Precio calculado con la mediana de 8 anuncios (octubre 2026): aún no tengo el informe de idealista de esta zona." },
     { name: "La Orden",                                     price: 1384, m: 2.3,  t: 6.9,   a: 11.4, max: "1.384 €/m² (sep 2026)", maxv: 0 },
-    { name: "Las Colonias",                                 price: null, m: null, t: null,  a: null, max: null, maxv: null,
-      nota: "Pendiente de datos: aún no tengo el precio de esta zona." },
-    { name: "Tres Ventanas",                                price: null, m: null, t: null,  a: null, max: null, maxv: null,
-      nota: "Pendiente de datos: aún no tengo el precio de esta zona." },
-    { name: "Fuentepiña",                                   price: null, m: null, t: null,  a: null, max: null, maxv: null,
-      nota: "Pendiente de datos: aún no tengo el precio de esta zona." }
+    { name: "Las Colonias",                                 price: 1630, m: null, t: null,  a: null, max: null, maxv: null,
+      nota: "Precio orientativo: media de las zonas vecinas, hasta tener el informe de idealista de esta zona." },
+    { name: "Tres Ventanas",                                price: 1720, m: null, t: null,  a: null, max: null, maxv: null,
+      nota: "Precio orientativo: media de las zonas vecinas, hasta tener el informe de idealista de esta zona." },
+    { name: "Fuentepiña",                                   price: 1700, m: null, t: null,  a: null, max: null, maxv: null,
+      nota: "Precio orientativo: media de las zonas vecinas, hasta tener el informe de idealista de esta zona." }
   ];
+  ZONES.sort(function (x, y) { return (y.price || 0) - (x.price || 0); });
 
   var fmt = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); };
   var pctTxt = function (v) { return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1).replace(".", ",") + " %"; };
