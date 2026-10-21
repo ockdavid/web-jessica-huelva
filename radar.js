@@ -4,6 +4,14 @@
   var M = window.MERCADO_HUELVA;
   if (!M) return;
 
+  /* Zonas donde trabaja Jessica: el radar solo recomienda estas.
+     Las que aún no tienen precio (Las Colonias, Tres Ventanas, Fuentepiña) entrarán al añadirlas a assets/mercado-huelva.js */
+  var ZONAS_TRABAJO = ["La Hispanidad - Verdeluz", "La Orden", "El Carmen - Cardeñas", "Fuentepiña", "Las Colonias",
+    "Nuevo Parque - Los Rosales - Tráfico Pesado", "Isla Chica", "Tres Ventanas", "Las Torres - Guadalupe"];
+  var enTrabajo = function (nombre) { return ZONAS_TRABAJO.indexOf(nombre) !== -1; };
+  M.zonas = M.zonas.filter(function (z) { return enTrabajo(z.nombre); });
+  M.anuncios = M.anuncios.filter(function (a) { return enTrabajo(a.zona); });
+
   /* ---------- Supuestos (editables) ---------- */
   var ITP = 0.07;            // Andalucía
   var GASTOS_COMPRA = 0.018; // notaría + registro + gestoría

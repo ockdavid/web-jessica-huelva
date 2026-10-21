@@ -14,8 +14,8 @@
      ===================================================================== */
 
   var OPS = [
-    { id: "mateo-habitaciones", tipo: "alquiler", modo: "habitaciones", foto: null,
-      titulo: "Piso de 87.000 € reformado para alquilar por habitaciones", zona: "Huelva",
+    { id: "mateo-habitaciones", tipo: "alquiler", modo: "habitaciones", foto: "mateo-aleman.webp",
+      titulo: "Piso de 87.000 € reformado para alquilar por habitaciones", zona: "La Hispanidad - Verdeluz",
       chips: ["Por habitaciones", "Hipoteca al 90 %", "Reforma 7.000 €"],
       datos: [["Modalidad", "Por habitaciones"], ["Compra", "87.000 €"], ["Hipoteca", "90 %"]],
       compra: 87000, itp: 6090, notarias: 1580, reforma: 7000, gestion: 4235, brutaSobreVivienda: false,
@@ -24,8 +24,8 @@
       historia: "Es la misma vivienda que la operación de alquiler tradicional de 87.000 €, analizada en la otra modalidad para poder compararlas. Aquí se invierte más en reforma para alquilarla habitación a habitación.",
       leccion: "Con 6.000 € más de reforma, el alquiler pasa de 750 a 1.100 € al mes y la rentabilidad bruta llega al {bruta}. Más ingresos, pero también más gastos y más gestión: conviene calcular las dos opciones antes de decidir." },
 
-    { id: "santa-rafaela", tipo: "alquiler", modo: "habitaciones", foto: null,
-      titulo: "Piso de 98.000 € para alquilar por habitaciones", zona: "Huelva",
+    { id: "santa-rafaela", tipo: "alquiler", modo: "habitaciones", foto: "santa-rafaela.webp",
+      titulo: "Piso de 98.000 € para alquilar por habitaciones", zona: "Las Colonias",
       chips: ["Por habitaciones", "Hipoteca al 90 %", "Reforma 5.000 €"],
       datos: [["Modalidad", "Por habitaciones"], ["Compra", "98.000 €"], ["Hipoteca", "90 %"]],
       compra: 98000, itp: 6860, notarias: 1700, reforma: 5000, gestion: 6500, brutaSobreVivienda: false,
@@ -34,8 +34,8 @@
       historia: "Piso comprado por 98.000 € con una reforma de 5.000 € para alquilarlo por habitaciones. Con financiación al 90 % y un tipo de interés bajo, el capital propio que se necesita es reducido.",
       leccion: "Una hipoteca barata y un alquiler alto respecto al precio dejan una rentabilidad bruta del {bruta} y un cash flow que cubre la cuota con holgura." },
 
-    { id: "carabelas-5", tipo: "alquiler", modo: "habitaciones", foto: null,
-      titulo: "Piso de 117 m² con terraza y ascensor en zona de alta demanda", zona: "Huelva · alta demanda",
+    { id: "carabelas-5", tipo: "alquiler", modo: "habitaciones", foto: "tres-carabelas.webp",
+      titulo: "Piso de 117 m² con terraza y ascensor en zona de alta demanda", zona: "El Carmen - Cardeñas · alta demanda",
       chips: ["Por habitaciones", "117 m²", "Terraza"],
       datos: [["Superficie", "117 m²"], ["Habitaciones", "4"], ["Baños", "1"], ["Planta", "2ª con ascensor"], ["Año", "1970"]],
       compra: 117000, itp: 8190, notarias: 915, reforma: 3500, gestion: 8500, brutaSobreVivienda: true,
@@ -44,8 +44,8 @@
       historia: "Piso amplio de cuatro habitaciones con terraza y ascensor, en una zona de alta demanda, alquilado por habitaciones. Necesitó una reforma y un amueblado muy contenidos.",
       leccion: "Cuando el piso es grande y está bien situado, alquilarlo por habitaciones hace crecer el alquiler total más deprisa que el precio de compra: de ahí una rentabilidad bruta del {bruta}." },
 
-    { id: "soforas-tradicional", tipo: "alquiler", modo: "tradicional", foto: null,
-      titulo: "Piso de 69.700 € para alquiler tradicional", zona: "Huelva",
+    { id: "soforas-tradicional", tipo: "alquiler", modo: "tradicional", foto: "soforas.webp",
+      titulo: "Piso de 69.700 € para alquiler tradicional", zona: "Las Torres - Guadalupe",
       chips: ["Tradicional", "Hipoteca al 90 %", "Reforma 2.000 €"],
       datos: [["Modalidad", "Tradicional"], ["Compra", "69.700 €"], ["Hipoteca", "90 %"]],
       compra: 69700, itp: 4879, notarias: 1580, reforma: 2000, gestion: 3630, brutaSobreVivienda: false,
@@ -54,8 +54,8 @@
       historia: "Piso de precio de entrada bajo, con una reforma ligera, pensado para alquilar de forma tradicional.",
       leccion: "Cuando se compra barato y se alquila a un precio razonable, la rentabilidad bruta se dispara ({bruta}). La rentabilidad se gana al negociar el precio de compra." },
 
-    { id: "mateo-tradicional", tipo: "alquiler", modo: "tradicional", foto: null,
-      titulo: "Piso de 87.000 € para alquiler tradicional", zona: "Huelva",
+    { id: "mateo-tradicional", tipo: "alquiler", modo: "tradicional", foto: "mateo-aleman.webp",
+      titulo: "Piso de 87.000 € para alquiler tradicional", zona: "La Hispanidad - Verdeluz",
       chips: ["Tradicional", "Hipoteca al 80 %", "Reforma 1.000 €"],
       datos: [["Modalidad", "Tradicional"], ["Compra", "87.000 €"], ["Hipoteca", "80 %"]],
       compra: 87000, itp: 6090, notarias: 1580, reforma: 1000, gestion: 4235, brutaSobreVivienda: false,
@@ -64,8 +64,8 @@
       historia: "Piso comprado por 87.000 € y puesto en alquiler tradicional con una reforma mínima. Es la misma vivienda que la operación por habitaciones, analizada de la forma más sencilla.",
       leccion: "Con una reforma mínima se consigue una rentabilidad bruta del {bruta} y un cash flow positivo incluso con una hipoteca al 3,9 %." },
 
-    { id: "rio-duero", tipo: "alquiler", modo: "tradicional", foto: null,
-      titulo: "Piso de 3 habitaciones junto a una zona comercial nueva", zona: "Huelva · zona en revalorización",
+    { id: "rio-duero", tipo: "alquiler", modo: "tradicional", foto: "rio-duero.webp",
+      titulo: "Piso de 3 habitaciones junto a una zona comercial nueva", zona: "Los Rosales · zona en revalorización",
       chips: ["59 m²", "3 hab.", "1 baño"],
       datos: [["Superficie", "59 m²"], ["Habitaciones", "3"], ["Baños", "1"], ["Planta", "3ª sin ascensor"], ["Año", "1961"]],
       compra: 79000, itp: 5530, notarias: 830, reforma: 2860, gestion: 10000, brutaSobreVivienda: true,
@@ -74,8 +74,8 @@
       historia: "Piso en el extremo de una zona de precio contenido, pegado a un polígono nuevo con comercios y a 20 minutos andando de la universidad. Llegó recién reformado y pintado, con buena comunidad y sin derramas previstas. Solo hizo falta amueblarlo y actualizar detalles. Al otro lado se construyen viviendas de alta calidad, lo que apunta a una zona en revalorización.",
       leccion: "En una zona de precio contenido, un piso que ya está en buen estado permite entrar con poca reforma y un cash flow que cubre la hipoteca desde el primer mes." },
 
-    { id: "carabelas-27", tipo: "alquiler", modo: "tradicional", foto: null,
-      titulo: "Piso de 72 m² con ascensor en zona de alta demanda", zona: "Huelva · alta demanda",
+    { id: "carabelas-27", tipo: "alquiler", modo: "tradicional", foto: "tres-carabelas.webp",
+      titulo: "Piso de 72 m² con ascensor en zona de alta demanda", zona: "El Carmen - Cardeñas · alta demanda",
       chips: ["72 m²", "2 hab.", "Ascensor"],
       datos: [["Superficie", "72 m²"], ["Habitaciones", "2 (antes 3)"], ["Baños", "1"], ["Planta", "1ª con ascensor"], ["Año", "1975"]],
       compra: 90000, itp: 6300, notarias: 865, reforma: 2000, gestion: 8000, brutaSobreVivienda: true,
@@ -84,8 +84,8 @@
       historia: "Piso exterior con ascensor en una zona de alta demanda. Se redistribuyó para pasar de tres a dos habitaciones, con una reforma contenida.",
       leccion: "Una zona de alta demanda y un edificio con ascensor suelen ser los mejores aliados de un alquiler estable, con una rentabilidad bruta del {bruta}." },
 
-    { id: "venezuela-4", tipo: "alquiler", modo: "tradicional", foto: null,
-      titulo: "Piso de 54 m² y 3 habitaciones en zona de alta demanda", zona: "Huelva · alta demanda",
+    { id: "venezuela-4", tipo: "alquiler", modo: "tradicional", foto: "venezuela.webp",
+      titulo: "Piso de 54 m² y 3 habitaciones en zona de alta demanda", zona: "Isla Chica · alta demanda",
       chips: ["54 m²", "3 hab.", "1 baño"],
       datos: [["Superficie", "54 m²"], ["Habitaciones", "3"], ["Baños", "1"], ["Planta", "1ª sin ascensor"], ["Año", "1954"]],
       compra: 105000, itp: 7350, notarias: 890, reforma: 2000, gestion: 8000, brutaSobreVivienda: true,
@@ -94,7 +94,7 @@
       historia: "Piso pequeño de tres habitaciones en una zona de alta demanda, que con una reforma ligera queda listo para alquilar.",
       leccion: "Pagar más por una zona muy demandada baja algo la rentabilidad bruta ({bruta}), pero a cambio se gana seguridad: es el perfil de equilibrio entre rentabilidad y buen activo." },
 
-    { id: "cervantes-flip", tipo: "flip", estado: "En curso", foto: null,
+    { id: "cervantes-flip", tipo: "flip", estado: "En curso", foto: "cervantes.webp",
       titulo: "Vivienda de 94 m² comprada por 55.000 € para reformar y vender", zona: "Isla Cristina (Huelva)",
       chips: ["94 m²", "Compra 55.000 €", "Reforma en proyecto"],
       datos: [["Superficie", "94 m²"], ["Localidad", "Isla Cristina"], ["Estado", "En curso"], ["Valor de referencia", "87.483 €"]],
@@ -207,7 +207,7 @@
 
   function tablaAlquiler(o) {
     var r = o.r;
-    var t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(o.itp)) + fila("Notaría, registro, gestoría y tasación", eur(o.notarias)) +
+    var t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(o.itp)) + fila("Notaría, registro y gestiones", eur(o.notarias)) +
       fila("Reforma y mobiliario", eur(o.reforma)) + fila("Comisiones de intermediarios", eur(o.gestion)) + fila("Inversión total", eur(r.total), "total") +
       fila("Hipoteca (" + Math.round(o.fin.pct * 100) + " %, " + o.fin.plazo + " años al " + (o.fin.interes * 100).toFixed(1).replace(".", ",") + " %)", eur(r.hipoteca)) +
       fila("Capital aportado", eur(r.aportado), "total") +
@@ -262,7 +262,7 @@
     ultimo = trigger;
     var p = principal(o);
     $("m-foto").innerHTML = o.foto
-      ? '<img src="assets/ops/' + o.foto + '" alt="Vivienda: ' + o.titulo + '">'
+      ? '<img src="assets/ops/' + o.foto + '" alt="Calle de la vivienda: ' + o.titulo + '"><div class="credito">Imagen de la calle: Google Street View</div>'
       : '<div class="ph grande">' + CASA + "<span>" + o.zona + '</span><div class="ph-rent"><b>' + p.txt + "</b><small>" + p.et + "</small></div></div>";
     $("m-info").innerHTML = detalle(o);
     var m = $("modal");

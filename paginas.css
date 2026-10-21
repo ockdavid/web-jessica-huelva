@@ -224,3 +224,5 @@ input[type=range]:focus-visible { outline: 3px solid var(--fucsia); outline-offs
 @media (max-width: 1000px) {
   .modal-foto { aspect-ratio: auto; height: clamp(200px, 38vh, 300px); min-height: 0; width: 100%; }
 }
+
+.ficha small { overflow-wrap: normal; word-break: normal; letter-spacing: .05em; font-size: .62rem; }
