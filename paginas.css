@@ -128,8 +128,8 @@ input[type=range]:focus-visible { outline: 3px solid var(--fucsia); outline-offs
 .op-nums div small { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
 .op-nums div b { font: 500 1.2rem/1.3 var(--serif); }
 .op-more { color: var(--magenta); font-weight: 600; font-size: .9rem; margin-top: 4px; }
-.aviso-ficticio { display: flex; gap: 12px; align-items: flex-start; background: rgba(230, 0, 126, .08); border: 1px dashed rgba(163, 28, 105, .45); border-radius: 16px; padding: 16px 20px; color: var(--ink); font-size: .92rem; margin: 0 auto 36px; max-width: 920px; }
-.aviso-ficticio svg { width: 22px; height: 22px; color: var(--magenta); flex: none; margin-top: 2px; }
+.aviso-datos { display: flex; gap: 12px; align-items: flex-start; background: rgba(230, 0, 126, .08); border: 1px dashed rgba(163, 28, 105, .45); border-radius: 16px; padding: 16px 20px; color: var(--ink); font-size: .92rem; margin: 0 auto 36px; max-width: 920px; }
+.aviso-datos svg { width: 22px; height: 22px; color: var(--magenta); flex: none; margin-top: 2px; }
 
 /* Modal de operación */
 .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
@@ -161,9 +161,29 @@ input[type=range]:focus-visible { outline: 3px solid var(--fucsia); outline-offs
 .tabla-op .sub td { color: var(--muted); font-size: .86rem; padding-left: 14px; }
 .lec { background: rgba(163, 28, 105, .07); border-radius: 16px; padding: 16px 18px; font-size: .92rem; color: var(--ink); line-height: 1.55; }
 .lec b { color: var(--magenta-deep); }
-.fotos-cred { margin-top: 40px; font-size: .8rem; color: var(--muted); }
-.fotos-cred summary { font: 500 .95rem var(--sans); padding: 10px 0; }
-.fotos-cred ul { padding-left: 18px; line-height: 1.6; }
+/* Operaciones sin foto: marcador con la zona (las fotos se añaden con  foto: "archivo.webp"  en operaciones.js) */
+.op-foto.sin-foto { background: linear-gradient(140deg, #f7e3ec, #f1cadd 55%, #e8afcb); }
+.ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 0 20px 28px; text-align: center; color: var(--magenta-deep); background-image: radial-gradient(rgba(163, 28, 105, .13) 1.2px, transparent 1.5px); background-size: 18px 18px; }
+.ph-ico { width: 64px; height: 64px; color: var(--magenta); opacity: .85; }
+.ph span { font: 600 .74rem/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+.modal-foto .ph { background-color: #f1cadd; background-image: radial-gradient(rgba(163, 28, 105, .14) 1.2px, transparent 1.5px), linear-gradient(140deg, #f7e3ec, #e8afcb); background-size: 18px 18px, 100% 100%; padding-bottom: 0; }
+.ph.grande .ph-ico { width: 84px; height: 84px; }
+.ph-rent { margin-top: 12px; background: var(--magenta); color: #fff; border-radius: 18px; padding: 14px 24px; box-shadow: 0 10px 24px -8px rgba(163, 28, 105, .7); }
+.ph-rent b { display: block; font: 500 2.3rem/1 var(--serif); }
+.ph-rent small { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; opacity: .92; }
+
+/* Escenarios de la compraventa */
+.esc-titulo { font: 500 1.2rem/1.2 var(--serif); margin: 26px 0 12px; }
+.esc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-bottom: 20px; }
+.esc-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.esc-card > b { grid-column: 1 / -1; font: 500 1.05rem/1.25 var(--serif); }
+.esc-card dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: .84rem; }
+.esc-card dt { color: var(--muted); }
+.esc-card dd { margin: 0; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.esc-rent { text-align: center; background: rgba(47, 122, 61, .1); border-radius: 14px; padding: 10px 14px; color: #2f7a3d; }
+.esc-rent b { display: block; font: 600 1.5rem/1 var(--serif); }
+.esc-rent small { font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 420px) { .esc-card { grid-template-columns: minmax(0, 1fr); } }
 
 @media (max-width: 1000px) {
   .ops-grid { grid-template-columns: repeat(2, 1fr); }

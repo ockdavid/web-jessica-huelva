@@ -2,198 +2,254 @@
   "use strict";
 
   /* =====================================================================
-     OPERACIONES DE EJEMPLO (datos ficticios). Editar este bloque para
-     cambiar o añadir operaciones; el resto se calcula solo.
-     tipo: "tradicional" | "habitaciones" | "flip" | "hogar"
+     OPERACIONES REALES. Cifras tomadas de las calculadoras de rentabilidad
+     de cada operación. Por privacidad no se muestran direcciones.
+     Para añadir una operación: copiar una entrada de OPS y cambiar los datos;
+     el resto (rentabilidades, tabla, filtros) se calcula solo.
+     Fotos: poner el archivo en assets/ops/ y rellenar  foto: "nombre.webp".
+     tipo "alquiler": compra, itp, notarias, reforma, gestion (gestión de la compra
+       y otros gastos), fin {pct, interes, plazo}, rentaMes, gastos [[concepto, €/año]].
+       brutaSobreVivienda: true  -> la bruta se calcula sin "gestion" (como en la calculadora Nexia).
+     tipo "flip": escenarios [{nombre, venta, reforma, gastosTotales, beneficio, irpf}].
      ===================================================================== */
-  var ITP = 0.07; // Andalucía
 
   var OPS = [
-    { id: "isla-chica-tradicional", tipo: "tradicional", foto: "bloque-de-pisos-huelva.webp",
-      titulo: "Piso reformado en Isla Chica", zona: "Isla Chica", fecha: "Cerrada en mayo de 2026",
-      m2: 78, hab: 3, banos: 1, planta: "3ª con ascensor",
-      compra: 98000, gastosCompra: 1900, reforma: 9500, mobiliario: 0,
-      financiado: 0.7, interes: 0.029, plazo: 30, alquilerMes: 690,
-      gastosAnuales: [["IBI y basuras", 260], ["Seguros", 300], ["Comunidad", 360], ["Mantenimiento", 300], ["Vacíos", 500]],
-      historia: "Piso de tres habitaciones con cocina y baño por renovar. Se negoció el precio a la baja por el estado del edificio y se hizo una reforma media con cocina nueva, baño y pintura. Se alquiló en tres semanas a una familia con contrato de larga duración.",
-      leccion: "Con una reforma contenida y un buen inquilino, un piso de zona media deja una rentabilidad estable y un cash flow que ya paga la hipoteca." },
+    { id: "mateo-habitaciones", tipo: "alquiler", modo: "habitaciones", foto: null,
+      titulo: "Piso de 87.000 € reformado para alquilar por habitaciones", zona: "Huelva",
+      chips: ["Por habitaciones", "Hipoteca al 90 %", "Reforma 7.000 €"],
+      datos: [["Modalidad", "Por habitaciones"], ["Compra", "87.000 €"], ["Hipoteca", "90 %"]],
+      compra: 87000, itp: 6090, notarias: 1080, reforma: 7000, gestion: 4735, brutaSobreVivienda: false,
+      fin: { pct: 0.9, interes: 0.039, plazo: 30 }, rentaMes: 1100,
+      gastos: [["IBI y basuras", 200], ["Seguros", 960], ["Comunidad", 120], ["Mantenimiento", 1320], ["Vacíos", 660]],
+      historia: "Es la misma vivienda que la operación de alquiler tradicional de 87.000 €, analizada en la otra modalidad para poder compararlas. Aquí se invierte más en reforma para alquilarla habitación a habitación.",
+      leccion: "Con 6.000 € más de reforma, el alquiler pasa de 750 a 1.100 € al mes y la rentabilidad bruta llega al {bruta}. Más ingresos, pero también más gastos y más gestión: conviene calcular las dos opciones antes de decidir." },
 
-    { id: "centro-habitaciones", tipo: "habitaciones", foto: "calle-concepci-n-huelva.webp",
-      titulo: "Piso de 4 habitaciones en el Centro", zona: "Centro", fecha: "Cerrada en febrero de 2026",
-      m2: 112, hab: 4, banos: 2, planta: "2ª con ascensor",
-      compra: 165000, gastosCompra: 2400, reforma: 22000, mobiliario: 5500,
-      financiado: 0.8, interes: 0.029, plazo: 30, habitaciones: [390, 370, 360, 340],
-      gastosAnuales: [["IBI y basuras", 320], ["Seguros", 350], ["Comunidad", 720], ["Mantenimiento", 1000], ["Suministros", 2400], ["Limpieza", 720], ["Vacíos", 1000]],
-      historia: "Piso amplio y céntrico, con cuatro dormitorios y dos baños. Se reformó para que cada habitación fuera independiente y se amuebló entero. Cerca de la universidad y del centro, se alquiló por habitaciones a estudiantes y trabajadores.",
-      leccion: "Alquilar por habitaciones multiplica los ingresos, pero también los gastos y la gestión. La rentabilidad sube, y el cash flow depende de mantenerlo lleno." },
+    { id: "santa-rafaela", tipo: "alquiler", modo: null, foto: null,
+      titulo: "Piso de 98.000 € con un alquiler de 1.200 € al mes", zona: "Huelva",
+      chips: ["Alquiler 1.200 €/mes", "Hipoteca al 90 %", "Reforma 5.000 €"],
+      datos: [["Compra", "98.000 €"], ["Alquiler", "1.200 €/mes"], ["Hipoteca", "90 %"]],
+      compra: 98000, itp: 6860, notarias: 1100, reforma: 5000, gestion: 7100, brutaSobreVivienda: false,
+      fin: { pct: 0.9, interes: 0.027, plazo: 30 }, rentaMes: 1200,
+      gastos: [["IBI y basuras", 200], ["Seguros", 1120], ["Comunidad", 804], ["Mantenimiento", 1440], ["Vacíos", 720]],
+      historia: "Piso comprado por 98.000 € con una reforma de 5.000 € para ponerlo en alquiler. Con financiación al 90 % y un tipo de interés bajo, el capital propio que se necesita es reducido.",
+      leccion: "Una hipoteca barata y un alquiler alto respecto al precio dejan una rentabilidad bruta del {bruta} y un cash flow que cubre la cuota con holgura." },
 
-    { id: "reina-victoria-flip", tipo: "flip", foto: "casas-en-el-barrio-reina-victoria.webp",
-      titulo: "Casa a reformar en Barrio Reina Victoria", zona: "Reina Victoria - Matadero", fecha: "Vendida en abril de 2026",
-      m2: 96, hab: 3, banos: 2, planta: "Casa de dos plantas",
-      compra: 118000, gastosCompra: 1600, reforma: 34000, mobiliario: 2800, gastosVarios: 2600,
-      venta: 198000, comisionVenta: 5000, meses: 7,
-      historia: "Casa antigua con mucho encanto en un barrio con identidad propia. Se compró por debajo del mercado por su estado, se rehabilitó por completo y se preparó para la venta con una pequeña puesta en escena.",
-      leccion: "En una compraventa, el beneficio se decide al comprar: el precio de entrada, el presupuesto de la reforma y el plazo mandan más que el precio de venta." },
+    { id: "carabelas-5", tipo: "alquiler", modo: null, foto: null,
+      titulo: "Piso de 117 m² con terraza y ascensor en zona de alta demanda", zona: "Huelva · alta demanda",
+      chips: ["117 m²", "4 hab.", "Terraza"],
+      datos: [["Superficie", "117 m²"], ["Habitaciones", "4"], ["Baños", "1"], ["Planta", "2ª con ascensor"], ["Año", "1970"]],
+      compra: 117000, itp: 8190, notarias: 915, reforma: 3500, gestion: 8500, brutaSobreVivienda: true,
+      fin: { pct: 0.8, interes: 0.025, plazo: 30 }, rentaMes: 1200, rentaRango: [750, 1200],
+      gastos: [["IBI y basuras", 200], ["Seguro de hogar", 180], ["Comunidad", 540]],
+      historia: "Piso amplio de cuatro habitaciones con terraza y ascensor, en una zona de alta demanda. Necesitó una reforma y un amueblado muy contenidos.",
+      leccion: "Cuando el piso es grande y está bien situado, el alquiler total crece más deprisa que el precio de compra: de ahí una rentabilidad bruta del {bruta}." },
 
-    { id: "san-antonio-tradicional", tipo: "tradicional", foto: "balc-n-concepci-n-20-huelva.webp",
-      titulo: "Piso con balcón en San Antonio", zona: "San Antonio", fecha: "Cerrada en septiembre de 2025",
-      m2: 64, hab: 2, banos: 1, planta: "1ª sin ascensor",
-      compra: 84000, gastosCompra: 1700, reforma: 7000, mobiliario: 0,
-      financiado: 0.8, interes: 0.03, plazo: 30, alquilerMes: 610,
-      gastosAnuales: [["IBI y basuras", 230], ["Seguros", 290], ["Comunidad", 240], ["Mantenimiento", 300], ["Vacíos", 450]],
-      historia: "Piso pequeño y bien distribuido en un edificio con fachada cuidada. Solo necesitó un lavado de cara: pintura, suelos y baño. Al ser un tamaño muy demandado, se alquiló en pocos días.",
-      leccion: "Los pisos pequeños en zonas céntricas se alquilan rápido y con poca reforma. Con financiación, el dinero propio que se aporta es bajo." },
+    { id: "soforas-tradicional", tipo: "alquiler", modo: "tradicional", foto: null,
+      titulo: "Piso de 69.700 € para alquiler tradicional", zona: "Huelva",
+      chips: ["Tradicional", "Hipoteca al 90 %", "Reforma 2.000 €"],
+      datos: [["Modalidad", "Tradicional"], ["Compra", "69.700 €"], ["Hipoteca", "90 %"]],
+      compra: 69700, itp: 4879, notarias: 1080, reforma: 2000, gestion: 4130, brutaSobreVivienda: false,
+      fin: { pct: 0.9, interes: 0.039, plazo: 30 }, rentaMes: 750,
+      gastos: [["IBI y basuras", 200], ["Seguros", 750], ["Comunidad", 120], ["Mantenimiento", 900], ["Vacíos", 450]],
+      historia: "Piso de precio de entrada bajo, con una reforma ligera, pensado para alquilar de forma tradicional.",
+      leccion: "Cuando se compra barato y se alquila a un precio razonable, la rentabilidad bruta se dispara ({bruta}). La rentabilidad se gana al negociar el precio de compra." },
 
-    { id: "torres-flip", tipo: "flip", foto: "hilera-de-casas-barrio-de-reina-victoria.webp",
-      titulo: "Vivienda reformada en Las Torres - Guadalupe", zona: "Las Torres - Guadalupe", fecha: "Vendida en enero de 2026",
-      m2: 88, hab: 3, banos: 1, planta: "Vivienda unifamiliar adosada",
-      compra: 92000, gastosCompra: 1500, reforma: 28000, mobiliario: 2500, gastosVarios: 2200,
-      venta: 158000, comisionVenta: 4000, meses: 6,
-      historia: "Vivienda adosada con distribución anticuada. Se reformó la cocina, el baño y la zona de día, abriendo espacios. Salió al mercado con buenas fotos y se vendió en pocas semanas.",
-      leccion: "Una reforma bien elegida no es la más cara, sino la que más valor aporta al comprador final por cada euro invertido." },
+    { id: "mateo-tradicional", tipo: "alquiler", modo: "tradicional", foto: null,
+      titulo: "Piso de 87.000 € para alquiler tradicional", zona: "Huelva",
+      chips: ["Tradicional", "Hipoteca al 80 %", "Reforma 1.000 €"],
+      datos: [["Modalidad", "Tradicional"], ["Compra", "87.000 €"], ["Hipoteca", "80 %"]],
+      compra: 87000, itp: 6090, notarias: 1080, reforma: 1000, gestion: 4735, brutaSobreVivienda: false,
+      fin: { pct: 0.8, interes: 0.039, plazo: 30 }, rentaMes: 750,
+      gastos: [["IBI y basuras", 200], ["Seguros", 750], ["Comunidad", 120], ["Mantenimiento", 900], ["Vacíos", 450]],
+      historia: "Piso comprado por 87.000 € y puesto en alquiler tradicional con una reforma mínima. Es la misma vivienda que la operación por habitaciones, analizada de la forma más sencilla.",
+      leccion: "Con una reforma mínima se consigue una rentabilidad bruta del {bruta} y un cash flow positivo incluso con una hipoteca al 3,9 %." },
 
-    { id: "isla-chica-hogar", tipo: "hogar", foto: "vivienda-inglesa-barrio-de-reina-victoria.webp",
-      titulo: "Hogar familiar en Isla Chica", zona: "Isla Chica", fecha: "Cerrada en marzo de 2026",
-      m2: 96, hab: 3, banos: 2, planta: "Vivienda de tres plantas",
-      precioAnuncio: 185000, compra: 167000, gastosCompra: 2100, reforma: 0, mobiliario: 0, precioZonaM2: 1761,
-      visitas: 14, semanas: 9,
-      historia: "Una familia buscaba su primera vivienda para quedarse. Tras 14 visitas filtradas se eligió una casa con buen estado general. Se revisaron la nota simple, el acta de la comunidad y las derramas, y se negoció una rebaja del precio de salida.",
-      leccion: "Para vivir, ganar tiempo y evitar sorpresas importa tanto como el precio: revisar bien la documentación antes de reservar protege la compra." }
+    { id: "rio-duero", tipo: "alquiler", modo: null, foto: null,
+      titulo: "Piso de 3 habitaciones junto a una zona comercial nueva", zona: "Huelva · zona en revalorización",
+      chips: ["59 m²", "3 hab.", "1 baño"],
+      datos: [["Superficie", "59 m²"], ["Habitaciones", "3"], ["Baños", "1"], ["Planta", "3ª sin ascensor"], ["Año", "1961"]],
+      compra: 79000, itp: 5530, notarias: 830, reforma: 2860, gestion: 10000, brutaSobreVivienda: true,
+      fin: { pct: 0.8, interes: 0.025, plazo: 30 }, rentaMes: 650, rentaRango: [600, 750],
+      gastos: [["IBI y basuras", 200], ["Seguro de hogar", 180], ["Comunidad", 120]],
+      historia: "Piso en el extremo de una zona de precio contenido, pegado a un polígono nuevo con comercios y a 20 minutos andando de la universidad. Llegó recién reformado y pintado, con buena comunidad y sin derramas previstas. Solo hizo falta amueblarlo y actualizar detalles. Al otro lado se construyen viviendas de alta calidad, lo que apunta a una zona en revalorización.",
+      leccion: "En una zona de precio contenido, un piso que ya está en buen estado permite entrar con poca reforma y un cash flow que cubre la hipoteca desde el primer mes." },
+
+    { id: "carabelas-27", tipo: "alquiler", modo: null, foto: null,
+      titulo: "Piso de 72 m² con ascensor en zona de alta demanda", zona: "Huelva · alta demanda",
+      chips: ["72 m²", "2 hab.", "Ascensor"],
+      datos: [["Superficie", "72 m²"], ["Habitaciones", "2 (antes 3)"], ["Baños", "1"], ["Planta", "1ª con ascensor"], ["Año", "1975"]],
+      compra: 90000, itp: 6300, notarias: 865, reforma: 2000, gestion: 8000, brutaSobreVivienda: true,
+      fin: { pct: 0.8, interes: 0.025, plazo: 30 }, rentaMes: 700, rentaRango: [650, 750],
+      gastos: [["IBI y basuras", 200], ["Seguro de hogar", 180], ["Comunidad", 360]],
+      historia: "Piso exterior con ascensor en una zona de alta demanda. Se redistribuyó para pasar de tres a dos habitaciones, con una reforma contenida.",
+      leccion: "Una zona de alta demanda y un edificio con ascensor suelen ser los mejores aliados de un alquiler estable, con una rentabilidad bruta del {bruta}." },
+
+    { id: "venezuela-4", tipo: "alquiler", modo: null, foto: null,
+      titulo: "Piso de 54 m² y 3 habitaciones en zona de alta demanda", zona: "Huelva · alta demanda",
+      chips: ["54 m²", "3 hab.", "1 baño"],
+      datos: [["Superficie", "54 m²"], ["Habitaciones", "3"], ["Baños", "1"], ["Planta", "1ª sin ascensor"], ["Año", "1954"]],
+      compra: 105000, itp: 7350, notarias: 890, reforma: 2000, gestion: 8000, brutaSobreVivienda: true,
+      fin: { pct: 0.8, interes: 0.025, plazo: 30 }, rentaMes: 750, rentaRango: [650, 800],
+      gastos: [["IBI y basuras", 125], ["Seguro de hogar", 180], ["Comunidad", 240]],
+      historia: "Piso pequeño de tres habitaciones en una zona de alta demanda, que con una reforma ligera queda listo para alquilar.",
+      leccion: "Pagar más por una zona muy demandada baja algo la rentabilidad bruta ({bruta}), pero a cambio se gana seguridad: es el perfil de equilibrio entre rentabilidad y buen activo." },
+
+    { id: "cervantes-flip", tipo: "flip", estado: "En curso", foto: null,
+      titulo: "Vivienda de 94 m² comprada por 55.000 € para reformar y vender", zona: "Isla Cristina (Huelva)",
+      chips: ["94 m²", "Compra 55.000 €", "Reforma en proyecto"],
+      datos: [["Superficie", "94 m²"], ["Localidad", "Isla Cristina"], ["Estado", "En curso"], ["Valor de referencia", "87.483 €"]],
+      compra: 55000, itp: 1749.65, notarias: 1017.24, desocupacion: 6500, antiokupa: 1904.21, invertidoHoy: 68962.66,
+      escenarios: [
+        { nombre: "Vender sin reforma", venta: 120000, reforma: 1179.5, gastosTotales: 83276.28, beneficio: 36723.72, irpf: 14313.62 },
+        { nombre: "Dejarla para entrar a vivir", venta: 120000, reforma: 3133.8, gastosTotales: 88522.38, beneficio: 31477.62, irpf: 14310.17 },
+        { nombre: "Reforma integral", venta: 150000, reforma: 24726.7, gastosTotales: 119756.96, beneficio: 30243.04, irpf: 20660.05 }
+      ],
+      historia: "Vivienda de 94 m² en Isla Cristina, comprada por 55.000 € frente a un valor de referencia de 87.483 €. Se gestionó la desocupación y se protegió la vivienda con puerta y alarma antiokupa. La reforma está en proyecto: antes de decidirla se comparan tres escenarios de venta.",
+      leccion: "En un flip decide el escenario: reformar a fondo vende más caro, pero deja menos rentabilidad que vender casi como está. Mi criterio: que la rentabilidad neta después de impuestos supere el 25 %." }
   ];
 
-  var CREDITOS = {
-    "bloque-de-pisos-huelva.webp": { t: "Bloque de pisos, Huelva", a: "Jose A.", l: "CC BY 2.0", u: "https://commons.wikimedia.org/wiki/File:Bloque_de_pisos,_Huelva.jpg" },
-    "calle-concepci-n-huelva.webp": { t: "Calle Concepción, Huelva", a: "Jose A.", l: "CC BY 2.0", u: "https://commons.wikimedia.org/wiki/File:Calle_Concepci%C3%B3n,_Huelva.jpg" },
-    "casas-en-el-barrio-reina-victoria.webp": { t: "Casas en el Barrio Reina Victoria", a: "FJavier GómezL", l: "CC BY-SA 4.0", u: "https://commons.wikimedia.org/wiki/File:Casas_en_el_Barrio_Reina_Victoria.jpg" },
-    "balc-n-concepci-n-20-huelva.webp": { t: "Balcón - Concepción 20, Huelva", a: "Jose A.", l: "CC BY 2.0", u: "https://commons.wikimedia.org/wiki/File:Balc%C3%B3n_-_Concepci%C3%B3n_20,_Huelva.jpg" },
-    "hilera-de-casas-barrio-de-reina-victoria.webp": { t: "Hilera de casas - Barrio de Reina Victoria", a: "Jose A.", l: "CC BY 2.0", u: "https://commons.wikimedia.org/wiki/File:Hilera_de_casas_-_Barrio_de_Reina_Victoria.jpg" },
-    "vivienda-inglesa-barrio-de-reina-victoria.webp": { t: "Vivienda inglesa - Barrio de Reina Victoria", a: "Jose A.", l: "CC BY 2.0", u: "https://commons.wikimedia.org/wiki/File:Vivienda_inglesa_-_Barrio_de_Reina_Victoria.jpg" }
-  };
-
-  /* ---------- Cálculo (mismas fórmulas que las calculadoras de rentabilidad) ---------- */
+  /* ---------- Formato ---------- */
   var miles = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); };
   var eur = function (n) { return miles(n) + " €"; };
   var pct = function (n) { return n.toFixed(1).replace(".", ",") + " %"; };
   var sum = function (arr, i) { return arr.reduce(function (s, x) { return s + x[i]; }, 0); };
+  var $ = function (id) { return document.getElementById(id); };
 
-  function calc(o) {
-    var itp = o.compra * ITP;
-    var r = { itp: itp };
-    if (o.tipo === "tradicional" || o.tipo === "habitaciones") {
-      r.total = o.compra + itp + o.gastosCompra + o.reforma + o.mobiliario;
-      r.hipoteca = o.compra * o.financiado;
-      r.aportado = r.total - r.hipoteca;
-      r.rentaMes = o.habitaciones ? o.habitaciones.reduce(function (a, b) { return a + b; }, 0) : o.alquilerMes;
-      r.rentaAnual = r.rentaMes * 12;
-      r.gastosAnuales = sum(o.gastosAnuales, 1);
-      var i = o.interes / 12, n = o.plazo * 12;
-      var cuotaMes = r.hipoteca * i / (1 - Math.pow(1 + i, -n));
-      r.cuotaAnual = cuotaMes * 12;
-      r.intMedios = (r.cuotaAnual * o.plazo - r.hipoteca) / o.plazo;
-      r.amortMedia = r.hipoteca / o.plazo;
-      r.bruta = r.rentaAnual / r.total * 100;
-      r.neta = (r.rentaAnual - r.gastosAnuales - r.intMedios) / r.total * 100;
-      r.cashAnual = r.rentaAnual - r.gastosAnuales - r.cuotaAnual;
-      r.cashMes = r.cashAnual / 12;
-      r.coc = r.cashAnual / r.aportado * 100;
-      r.roce = (r.cashAnual + r.amortMedia) / r.aportado * 100;
-      r.principal = r.bruta; r.principalEt = "rent. bruta";
-    } else if (o.tipo === "flip") {
-      r.total = o.compra + itp + o.gastosCompra + o.reforma + o.mobiliario + o.gastosVarios + o.comisionVenta;
-      r.beneficio = o.venta - r.total;
-      r.rentab = r.beneficio / r.total * 100;
-      r.anual = (Math.pow(1 + r.beneficio / r.total, 12 / o.meses) - 1) * 100;
-      r.principal = r.rentab; r.principalEt = "beneficio";
-    } else {
-      r.total = o.compra + itp + o.gastosCompra;
-      r.ahorro = o.precioAnuncio - o.compra;
-      r.ahorroPct = r.ahorro / o.precioAnuncio * 100;
-      r.m2Pagado = o.compra / o.m2;
-      r.vsZona = (r.m2Pagado / o.precioZonaM2 - 1) * 100;
-      r.principal = r.ahorroPct; r.principalEt = "negociado";
-    }
+  /* ---------- Cálculo (mismas fórmulas que las calculadoras de rentabilidad) ---------- */
+  function calcAlquiler(o) {
+    var r = {};
+    r.total = o.compra + o.itp + o.notarias + o.reforma + o.gestion;
+    r.baseBruta = o.brutaSobreVivienda ? r.total - o.gestion : r.total;
+    r.hipoteca = o.compra * o.fin.pct;
+    r.aportado = r.total - r.hipoteca;
+    r.rentaAnual = o.rentaMes * 12;
+    r.gastosAnuales = sum(o.gastos, 1);
+    var i = o.fin.interes / 12, n = o.fin.plazo * 12;
+    r.cuotaAnual = r.hipoteca * i / (1 - Math.pow(1 + i, -n)) * 12;
+    r.amortMedia = r.hipoteca / o.fin.plazo;
+    r.bruta = r.rentaAnual / r.baseBruta * 100;
+    r.neta = (r.rentaAnual - r.gastosAnuales) / r.total * 100;
+    r.cashAnual = r.rentaAnual - r.gastosAnuales - r.cuotaAnual;
+    r.cashMes = r.cashAnual / 12;
+    r.coc = r.cashAnual / r.aportado * 100;
+    r.roce = (r.cashAnual + r.amortMedia) / r.aportado * 100;
     return r;
   }
-  OPS.forEach(function (o) { o.r = calc(o); });
 
-  var TIPO_TXT = { tradicional: "Alquiler tradicional", habitaciones: "Alquiler por habitaciones", flip: "Compraventa", hogar: "Vivienda habitual" };
-  var $ = function (id) { return document.getElementById(id); };
+  function calcFlip(o) {
+    var esc = o.escenarios.map(function (e) {
+      return Object.assign({}, e, { rentab: e.beneficio / e.gastosTotales * 100 });
+    });
+    var rs = esc.map(function (e) { return e.rentab; });
+    var ventas = esc.map(function (e) { return e.venta; });
+    return { esc: esc, min: Math.min.apply(null, rs), max: Math.max.apply(null, rs),
+             ventaMin: Math.min.apply(null, ventas), ventaMax: Math.max.apply(null, ventas) };
+  }
+
+  OPS.forEach(function (o) { o.r = o.tipo === "flip" ? calcFlip(o) : calcAlquiler(o); });
+
+  function tipoTxt(o) {
+    if (o.tipo === "flip") return "Compraventa";
+    return o.modo === "habitaciones" ? "Alquiler por habitaciones" : o.modo === "tradicional" ? "Alquiler tradicional" : "Alquiler";
+  }
+  function principal(o) {
+    if (o.tipo === "flip") return { txt: Math.round(o.r.min) + "–" + Math.round(o.r.max) + " %", et: "neta tras impuestos" };
+    return { txt: pct(o.r.bruta), et: "rent. bruta" };
+  }
 
   /* ---------- Estadísticas ---------- */
   function stats() {
-    var alq = OPS.filter(function (o) { return o.tipo === "tradicional" || o.tipo === "habitaciones"; });
-    var flips = OPS.filter(function (o) { return o.tipo === "flip"; });
-    var hogar = OPS.filter(function (o) { return o.tipo === "hogar"; });
-    var avg = function (a, k) { return a.reduce(function (s, o) { return s + o.r[k]; }, 0) / a.length; };
+    var alq = OPS.filter(function (o) { return o.tipo === "alquiler"; });
+    var brutas = alq.map(function (o) { return o.r.bruta; });
+    var media = brutas.reduce(function (a, b) { return a + b; }, 0) / brutas.length;
+    var flip = OPS.filter(function (o) { return o.tipo === "flip"; })[0];
     $("stats-ops").innerHTML =
       '<div class="celda"><div class="et">Operaciones</div><div class="n">' + OPS.length + "</div></div>" +
-      '<div class="celda"><div class="et">Rentabilidad bruta media en alquiler</div><div class="n verde">' + pct(avg(alq, "bruta")) + "</div></div>" +
-      '<div class="celda"><div class="et">Beneficio medio en compraventa</div><div class="n verde">' + pct(avg(flips, "rentab")) + "</div></div>" +
-      '<div class="celda"><div class="et">Rebaja media negociada</div><div class="n verde">' + pct(avg(hogar, "ahorroPct")) + "</div></div>";
+      '<div class="celda"><div class="et">Rentabilidad bruta media en alquiler</div><div class="n verde">' + pct(media) + "</div></div>" +
+      '<div class="celda"><div class="et">Rango en alquiler</div><div class="n verde">' + pct(Math.min.apply(null, brutas)).replace(" %", "") + "–" + pct(Math.max.apply(null, brutas)) + "</div></div>" +
+      (flip ? '<div class="celda"><div class="et">Compraventa: neta tras impuestos</div><div class="n verde">' + principal(flip).txt + "</div></div>" : "");
+  }
+
+  /* ---------- Fotos o marcador ---------- */
+  var CASA = '<svg class="ph-ico" aria-hidden="true"><use href="#i-casa"/></svg>';
+  function fotoHtml(o) {
+    return o.foto
+      ? '<img src="assets/ops/' + o.foto + '" alt="Vivienda: ' + o.titulo + '" loading="lazy" width="1100" height="800">'
+      : '<div class="ph">' + CASA + "<span>" + o.zona + "</span></div>";
   }
 
   /* ---------- Tarjetas ---------- */
   function card(o) {
-    var nums;
-    if (o.tipo === "flip") nums = [["Compra", eur(o.compra)], ["Venta", eur(o.venta)]];
-    else if (o.tipo === "hogar") nums = [["Precio anunciado", eur(o.precioAnuncio)], ["Pagado", eur(o.compra)]];
-    else nums = [["Inversión", eur(o.r.total)], ["Alquiler", eur(o.r.rentaMes) + "/mes"]];
-    var chips = ["" + o.m2 + " m²", o.hab + " hab.", o.banos + (o.banos > 1 ? " baños" : " baño")];
+    var nums = o.tipo === "flip"
+      ? [["Compra", eur(o.compra)], ["Venta estimada", miles(o.r.ventaMin / 1000) + "–" + miles(o.r.ventaMax / 1000) + " mil €"]]
+      : [["Inversión", eur(o.r.total)], ["Alquiler", eur(o.rentaMes) + "/mes"]];
+    var p = principal(o);
     return '<button type="button" class="op-card" data-id="' + o.id + '" data-tipo="' + o.tipo + '" aria-haspopup="dialog">' +
-      '<div class="op-foto"><img src="assets/ops/' + o.foto + '" alt="Fachada de la vivienda: ' + o.titulo + '" loading="lazy" width="1100" height="800">' +
-      '<span class="op-tipo">' + TIPO_TXT[o.tipo] + "</span>" +
-      '<div class="op-rent"><b>' + (o.tipo === "hogar" ? "−" : "") + pct(o.r.principal) + "</b><small>" + o.r.principalEt + "</small></div></div>" +
+      '<div class="op-foto' + (o.foto ? "" : " sin-foto") + '">' + fotoHtml(o) +
+      '<span class="op-tipo">' + tipoTxt(o) + (o.estado ? " · " + o.estado : "") + "</span>" +
+      '<div class="op-rent"><b>' + p.txt + "</b><small>" + p.et + "</small></div></div>" +
       '<div class="op-body"><span class="op-zona">' + o.zona + "</span><h3>" + o.titulo + "</h3>" +
-      '<div class="op-chips">' + chips.map(function (c) { return "<span>" + c + "</span>"; }).join("") + "</div>" +
+      '<div class="op-chips">' + o.chips.map(function (c) { return "<span>" + c + "</span>"; }).join("") + "</div>" +
       '<div class="op-nums">' + nums.map(function (n) { return "<div><small>" + n[0] + "</small><b>" + n[1] + "</b></div>"; }).join("") + "</div>" +
       '<span class="op-more">Ver detalle →</span></div></button>';
   }
 
   function render(filtro) {
-    var lista = OPS.filter(function (o) {
-      return filtro === "todas" || (filtro === "alquiler" && (o.tipo === "tradicional" || o.tipo === "habitaciones")) || o.tipo === filtro;
-    });
+    var lista = OPS.filter(function (o) { return filtro === "todas" || o.tipo === filtro; });
     $("ops-grid").innerHTML = lista.map(card).join("");
   }
 
   /* ---------- Detalle (modal) ---------- */
   function fila(a, b, cls) { return "<tr" + (cls ? ' class="' + cls + '"' : "") + "><td>" + a + "</td><td>" + b + "</td></tr>"; }
+  function sub(a, b) { return '<tr class="sub"><td>' + a + "</td><td>" + b + "</td></tr>"; }
+  function signo(n) { return (n >= 0 ? "+" : "−") + eur(Math.abs(n)); }
+
+  function tablaAlquiler(o) {
+    var r = o.r;
+    var t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(o.itp)) + fila("Notaría, registro y gestoría", eur(o.notarias)) +
+      fila("Reforma y mobiliario", eur(o.reforma)) + fila("Gestión de la compra y otros gastos", eur(o.gestion)) + fila("Inversión total", eur(r.total), "total") +
+      fila("Hipoteca (" + Math.round(o.fin.pct * 100) + " %, " + o.fin.plazo + " años al " + (o.fin.interes * 100).toFixed(1).replace(".", ",") + " %)", eur(r.hipoteca)) +
+      fila("Capital aportado", eur(r.aportado), "total") +
+      fila("Alquiler estimado", eur(o.rentaMes) + "/mes", "total");
+    if (o.rentaRango) t += sub("Rango estimado de alquiler", eur(o.rentaRango[0]) + " – " + eur(o.rentaRango[1]) + "/mes");
+    t += fila("Gastos anuales", eur(r.gastosAnuales));
+    o.gastos.forEach(function (g) { t += sub(g[0], eur(g[1])); });
+    return t + fila("Rentabilidad bruta", pct(r.bruta), "res") + fila("Rentabilidad neta (antes de impuestos e intereses)", pct(r.neta), "res") +
+      fila("Cash flow mensual tras la hipoteca (antes de impuestos)", signo(r.cashMes), "res") +
+      fila("Cash on cash", pct(r.coc), "res") + fila("ROCE (incluye amortización)", pct(r.roce), "res");
+  }
+
+  function bloqueFlip(o) {
+    var t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP, notaría y registro", eur(o.itp + o.notarias)) +
+      fila("Desocupación de la vivienda", eur(o.desocupacion)) + fila("Seguridad antiokupa (cerrajero, alarma y furgoneta)", eur(o.antiokupa)) +
+      fila("Invertido hasta hoy (incluye gestiones y suministros)", eur(o.invertidoHoy), "total");
+    var esc = '<h4 class="esc-titulo">Tres escenarios de venta</h4><div class="esc">' + o.r.esc.map(function (e) {
+      return '<div class="esc-card"><b>' + e.nombre + "</b>" +
+        "<dl><dt>Venta estimada</dt><dd>" + eur(e.venta) + "</dd>" +
+        "<dt>Reforma</dt><dd>" + eur(e.reforma) + "</dd>" +
+        "<dt>Gastos totales</dt><dd>" + eur(e.gastosTotales) + "</dd>" +
+        "<dt>IRPF estimado</dt><dd>" + eur(e.irpf) + "</dd>" +
+        "<dt>Beneficio tras impuestos</dt><dd>" + eur(e.beneficio) + "</dd></dl>" +
+        '<div class="esc-rent"><b>' + pct(e.rentab) + "</b><small>neta tras impuestos</small></div></div>";
+    }).join("") + "</div>";
+    return '<table class="tabla-op"><tbody>' + t + "</tbody></table>" + esc;
+  }
 
   function detalle(o) {
-    var r = o.r, t = "";
-    var ficha = '<div class="ficha"><div><small>Superficie</small><b>' + o.m2 + ' m²</b></div><div><small>Habitaciones</small><b>' + o.hab +
-      '</b></div><div><small>Baños</small><b>' + o.banos + '</b></div><div><small>Planta</small><b style="font-size:.95rem">' + o.planta + "</b></div></div>";
+    var ficha = '<div class="ficha">' + o.datos.map(function (d) { return "<div><small>" + d[0] + "</small><b>" + d[1] + "</b></div>"; }).join("") + "</div>";
+    var cuerpo, nota;
     if (o.tipo === "flip") {
-      t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(r.itp)) + fila("Notaría, registro y gestoría", eur(o.gastosCompra)) +
-        fila("Reforma", eur(o.reforma)) + fila("Mobiliario y puesta en escena", eur(o.mobiliario)) + fila("Gastos durante la obra", eur(o.gastosVarios)) +
-        fila("Comisión de venta", eur(o.comisionVenta)) + fila("Inversión total", eur(r.total), "total") +
-        fila("Precio de venta", eur(o.venta)) + fila("Beneficio antes de impuestos", eur(r.beneficio), "res") +
-        fila("Rentabilidad sobre la inversión", pct(r.rentab), "res") + fila("Duración", o.meses + " meses") + fila("Rentabilidad anualizada", pct(r.anual), "res");
-    } else if (o.tipo === "hogar") {
-      t = fila("Precio anunciado", eur(o.precioAnuncio)) + fila("Precio pagado", eur(o.compra)) + fila("Rebaja conseguida", eur(r.ahorro) + " (" + pct(r.ahorroPct) + ")", "res") +
-        fila("Impuesto ITP (7 %)", eur(r.itp)) + fila("Notaría, registro y gestoría", eur(o.gastosCompra)) + fila("Coste total de la compra", eur(r.total), "total") +
-        fila("Precio por m² pagado", eur(r.m2Pagado) + "/m²") + fila("Media de la zona (idealista, sep 2026)", eur(o.precioZonaM2) + "/m²") +
-        fila("Frente a la media de la zona", (r.vsZona >= 0 ? "+" : "−") + pct(Math.abs(r.vsZona))) + fila("Visitas realizadas", "" + o.visitas) + fila("Tiempo de búsqueda", o.semanas + " semanas");
+      cuerpo = bloqueFlip(o);
+      nota = "Operación en curso: la venta y la reforma de los escenarios son estimaciones, no resultados cerrados.";
     } else {
-      t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(r.itp)) + fila("Notaría, registro y gestoría", eur(o.gastosCompra)) +
-        fila("Reforma", eur(o.reforma)) + (o.mobiliario ? fila("Mobiliario", eur(o.mobiliario)) : "") + fila("Inversión total", eur(r.total), "total") +
-        fila("Hipoteca (" + Math.round(o.financiado * 100) + " %, " + o.plazo + " años al " + (o.interes * 100).toFixed(1).replace(".", ",") + " %)", eur(r.hipoteca)) +
-        fila("Capital aportado", eur(r.aportado), "total");
-      if (o.habitaciones) {
-        o.habitaciones.forEach(function (h, i) { t += fila("Habitación " + (i + 1), eur(h) + "/mes"); });
-        t += fila("Ingresos mensuales", eur(r.rentaMes) + "/mes", "total");
-      } else t += fila("Alquiler", eur(r.rentaMes) + "/mes", "total");
-      t += fila("Gastos anuales", eur(r.gastosAnuales));
-      o.gastosAnuales.forEach(function (g) { t += '<tr class="sub"><td>' + g[0] + "</td><td>" + eur(g[1]) + "</td></tr>"; });
-      t += fila("Rentabilidad bruta", pct(r.bruta), "res") + fila("Rentabilidad neta", pct(r.neta), "res") +
-        fila("Cash flow mensual", (r.cashMes >= 0 ? "+" : "−") + eur(Math.abs(r.cashMes)), "res") +
-        fila("Cash on cash", pct(r.coc), "res") + fila("ROCE (incluye amortización)", pct(r.roce), "res");
+      cuerpo = '<table class="tabla-op"><tbody>' + tablaAlquiler(o) + "</tbody></table>";
+      nota = "Alquiler estimado con criterio realista. La rentabilidad no incluye impuestos sobre el beneficio.";
     }
-    return '<span class="op-zona">' + TIPO_TXT[o.tipo] + " · " + o.zona + " · " + o.fecha + "</span>" +
-      '<h3 id="m-titulo">' + o.titulo + "</h3>" + '<p class="historia">' + o.historia + "</p>" + ficha +
-      '<table class="tabla-op"><tbody>' + t + "</tbody></table>" +
-      '<div class="lec"><b>Qué aprender de esta operación:</b> ' + o.leccion + "</div>" +
-      '<p class="nota" style="margin-top:14px">Operación de ejemplo con cifras ilustrativas. La rentabilidad no incluye impuestos sobre el beneficio.</p>' +
+    var lec = o.leccion.replace("{bruta}", o.tipo === "alquiler" ? pct(o.r.bruta) : "");
+    return '<span class="op-zona">' + tipoTxt(o) + " · " + o.zona + (o.estado ? " · " + o.estado : "") + "</span>" +
+      '<h3 id="m-titulo">' + o.titulo + "</h3>" + '<p class="historia">' + o.historia + "</p>" + ficha + cuerpo +
+      '<div class="lec"><b>Qué aprender de esta operación:</b> ' + lec + "</div>" +
+      '<p class="nota" style="margin-top:14px">' + nota + " Por privacidad no se indica la dirección.</p>" +
       '<div style="margin-top:20px"><a class="btn btn-primary" href="https://wa.me/34682459134?text=' +
       encodeURIComponent("Hola Jessica, he visto la operación \"" + o.titulo + "\" y me gustaría hablar contigo.") + '" target="_blank" rel="noopener">Quiero algo así</a></div>';
   }
@@ -203,10 +259,10 @@
     var o = OPS.filter(function (x) { return x.id === id; })[0];
     if (!o) return;
     ultimo = trigger;
-    $("m-img").src = "assets/ops/" + o.foto;
-    $("m-img").alt = "Fachada de la vivienda: " + o.titulo;
-    var c = CREDITOS[o.foto];
-    $("m-credito").innerHTML = c ? 'Foto: <a href="' + c.u + '" target="_blank" rel="noopener">' + c.t + "</a>, " + c.a + ", " + c.l : "";
+    var p = principal(o);
+    $("m-foto").innerHTML = o.foto
+      ? '<img src="assets/ops/' + o.foto + '" alt="Vivienda: ' + o.titulo + '">'
+      : '<div class="ph grande">' + CASA + "<span>" + o.zona + '</span><div class="ph-rent"><b>' + p.txt + "</b><small>" + p.et + "</small></div></div>";
     $("m-info").innerHTML = detalle(o);
     var m = $("modal");
     m.classList.add("open"); m.setAttribute("aria-hidden", "false");
@@ -248,11 +304,6 @@
     Array.prototype.forEach.call($("filtros").querySelectorAll("button"), function (x) { x.classList.toggle("activo", x === b); });
     render(b.dataset.f);
   });
-
-  $("creditos").innerHTML = Object.keys(CREDITOS).map(function (k) {
-    var c = CREDITOS[k];
-    return '<li><a href="' + c.u + '" target="_blank" rel="noopener">' + c.t + "</a> · " + c.a + " · " + c.l + " · Wikimedia Commons</li>";
-  }).join("");
 
   stats();
   render("todas");
