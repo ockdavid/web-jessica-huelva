@@ -7,7 +7,7 @@
      Para añadir una operación: copiar una entrada de OPS y cambiar los datos;
      el resto (rentabilidades, tabla, filtros) se calcula solo.
      Fotos: poner el archivo en assets/ops/ y rellenar  foto: "nombre.webp".
-     tipo "alquiler": compra, itp, notarias, reforma, gestion (gestión de la compra
+     tipo "alquiler": compra, itp, notarias, reforma, gestion (comisiones de intermediarios
        y otros gastos), fin {pct, interes, plazo}, rentaMes, gastos [[concepto, €/año]].
        brutaSobreVivienda: true  -> la bruta se calcula sin "gestion" (como en la calculadora Nexia).
      tipo "flip": escenarios [{nombre, venta, reforma, gastosTotales, beneficio, irpf}].
@@ -18,37 +18,37 @@
       titulo: "Piso de 87.000 € reformado para alquilar por habitaciones", zona: "Huelva",
       chips: ["Por habitaciones", "Hipoteca al 90 %", "Reforma 7.000 €"],
       datos: [["Modalidad", "Por habitaciones"], ["Compra", "87.000 €"], ["Hipoteca", "90 %"]],
-      compra: 87000, itp: 6090, notarias: 1080, reforma: 7000, gestion: 4735, brutaSobreVivienda: false,
+      compra: 87000, itp: 6090, notarias: 1580, reforma: 7000, gestion: 4235, brutaSobreVivienda: false,
       fin: { pct: 0.9, interes: 0.039, plazo: 30 }, rentaMes: 1100,
       gastos: [["IBI y basuras", 200], ["Seguros", 960], ["Comunidad", 120], ["Mantenimiento", 1320], ["Vacíos", 660]],
       historia: "Es la misma vivienda que la operación de alquiler tradicional de 87.000 €, analizada en la otra modalidad para poder compararlas. Aquí se invierte más en reforma para alquilarla habitación a habitación.",
       leccion: "Con 6.000 € más de reforma, el alquiler pasa de 750 a 1.100 € al mes y la rentabilidad bruta llega al {bruta}. Más ingresos, pero también más gastos y más gestión: conviene calcular las dos opciones antes de decidir." },
 
-    { id: "santa-rafaela", tipo: "alquiler", modo: null, foto: null,
-      titulo: "Piso de 98.000 € con un alquiler de 1.200 € al mes", zona: "Huelva",
-      chips: ["Alquiler 1.200 €/mes", "Hipoteca al 90 %", "Reforma 5.000 €"],
-      datos: [["Compra", "98.000 €"], ["Alquiler", "1.200 €/mes"], ["Hipoteca", "90 %"]],
-      compra: 98000, itp: 6860, notarias: 1100, reforma: 5000, gestion: 7100, brutaSobreVivienda: false,
+    { id: "santa-rafaela", tipo: "alquiler", modo: "habitaciones", foto: null,
+      titulo: "Piso de 98.000 € para alquilar por habitaciones", zona: "Huelva",
+      chips: ["Por habitaciones", "Hipoteca al 90 %", "Reforma 5.000 €"],
+      datos: [["Modalidad", "Por habitaciones"], ["Compra", "98.000 €"], ["Hipoteca", "90 %"]],
+      compra: 98000, itp: 6860, notarias: 1700, reforma: 5000, gestion: 6500, brutaSobreVivienda: false,
       fin: { pct: 0.9, interes: 0.027, plazo: 30 }, rentaMes: 1200,
       gastos: [["IBI y basuras", 200], ["Seguros", 1120], ["Comunidad", 804], ["Mantenimiento", 1440], ["Vacíos", 720]],
-      historia: "Piso comprado por 98.000 € con una reforma de 5.000 € para ponerlo en alquiler. Con financiación al 90 % y un tipo de interés bajo, el capital propio que se necesita es reducido.",
+      historia: "Piso comprado por 98.000 € con una reforma de 5.000 € para alquilarlo por habitaciones. Con financiación al 90 % y un tipo de interés bajo, el capital propio que se necesita es reducido.",
       leccion: "Una hipoteca barata y un alquiler alto respecto al precio dejan una rentabilidad bruta del {bruta} y un cash flow que cubre la cuota con holgura." },
 
-    { id: "carabelas-5", tipo: "alquiler", modo: null, foto: null,
+    { id: "carabelas-5", tipo: "alquiler", modo: "habitaciones", foto: null,
       titulo: "Piso de 117 m² con terraza y ascensor en zona de alta demanda", zona: "Huelva · alta demanda",
-      chips: ["117 m²", "4 hab.", "Terraza"],
+      chips: ["Por habitaciones", "117 m²", "Terraza"],
       datos: [["Superficie", "117 m²"], ["Habitaciones", "4"], ["Baños", "1"], ["Planta", "2ª con ascensor"], ["Año", "1970"]],
       compra: 117000, itp: 8190, notarias: 915, reforma: 3500, gestion: 8500, brutaSobreVivienda: true,
       fin: { pct: 0.8, interes: 0.025, plazo: 30 }, rentaMes: 1200, rentaRango: [750, 1200],
       gastos: [["IBI y basuras", 200], ["Seguro de hogar", 180], ["Comunidad", 540]],
-      historia: "Piso amplio de cuatro habitaciones con terraza y ascensor, en una zona de alta demanda. Necesitó una reforma y un amueblado muy contenidos.",
-      leccion: "Cuando el piso es grande y está bien situado, el alquiler total crece más deprisa que el precio de compra: de ahí una rentabilidad bruta del {bruta}." },
+      historia: "Piso amplio de cuatro habitaciones con terraza y ascensor, en una zona de alta demanda, alquilado por habitaciones. Necesitó una reforma y un amueblado muy contenidos.",
+      leccion: "Cuando el piso es grande y está bien situado, alquilarlo por habitaciones hace crecer el alquiler total más deprisa que el precio de compra: de ahí una rentabilidad bruta del {bruta}." },
 
     { id: "soforas-tradicional", tipo: "alquiler", modo: "tradicional", foto: null,
       titulo: "Piso de 69.700 € para alquiler tradicional", zona: "Huelva",
       chips: ["Tradicional", "Hipoteca al 90 %", "Reforma 2.000 €"],
       datos: [["Modalidad", "Tradicional"], ["Compra", "69.700 €"], ["Hipoteca", "90 %"]],
-      compra: 69700, itp: 4879, notarias: 1080, reforma: 2000, gestion: 4130, brutaSobreVivienda: false,
+      compra: 69700, itp: 4879, notarias: 1580, reforma: 2000, gestion: 3630, brutaSobreVivienda: false,
       fin: { pct: 0.9, interes: 0.039, plazo: 30 }, rentaMes: 750,
       gastos: [["IBI y basuras", 200], ["Seguros", 750], ["Comunidad", 120], ["Mantenimiento", 900], ["Vacíos", 450]],
       historia: "Piso de precio de entrada bajo, con una reforma ligera, pensado para alquilar de forma tradicional.",
@@ -58,13 +58,13 @@
       titulo: "Piso de 87.000 € para alquiler tradicional", zona: "Huelva",
       chips: ["Tradicional", "Hipoteca al 80 %", "Reforma 1.000 €"],
       datos: [["Modalidad", "Tradicional"], ["Compra", "87.000 €"], ["Hipoteca", "80 %"]],
-      compra: 87000, itp: 6090, notarias: 1080, reforma: 1000, gestion: 4735, brutaSobreVivienda: false,
+      compra: 87000, itp: 6090, notarias: 1580, reforma: 1000, gestion: 4235, brutaSobreVivienda: false,
       fin: { pct: 0.8, interes: 0.039, plazo: 30 }, rentaMes: 750,
       gastos: [["IBI y basuras", 200], ["Seguros", 750], ["Comunidad", 120], ["Mantenimiento", 900], ["Vacíos", 450]],
       historia: "Piso comprado por 87.000 € y puesto en alquiler tradicional con una reforma mínima. Es la misma vivienda que la operación por habitaciones, analizada de la forma más sencilla.",
       leccion: "Con una reforma mínima se consigue una rentabilidad bruta del {bruta} y un cash flow positivo incluso con una hipoteca al 3,9 %." },
 
-    { id: "rio-duero", tipo: "alquiler", modo: null, foto: null,
+    { id: "rio-duero", tipo: "alquiler", modo: "tradicional", foto: null,
       titulo: "Piso de 3 habitaciones junto a una zona comercial nueva", zona: "Huelva · zona en revalorización",
       chips: ["59 m²", "3 hab.", "1 baño"],
       datos: [["Superficie", "59 m²"], ["Habitaciones", "3"], ["Baños", "1"], ["Planta", "3ª sin ascensor"], ["Año", "1961"]],
@@ -74,7 +74,7 @@
       historia: "Piso en el extremo de una zona de precio contenido, pegado a un polígono nuevo con comercios y a 20 minutos andando de la universidad. Llegó recién reformado y pintado, con buena comunidad y sin derramas previstas. Solo hizo falta amueblarlo y actualizar detalles. Al otro lado se construyen viviendas de alta calidad, lo que apunta a una zona en revalorización.",
       leccion: "En una zona de precio contenido, un piso que ya está en buen estado permite entrar con poca reforma y un cash flow que cubre la hipoteca desde el primer mes." },
 
-    { id: "carabelas-27", tipo: "alquiler", modo: null, foto: null,
+    { id: "carabelas-27", tipo: "alquiler", modo: "tradicional", foto: null,
       titulo: "Piso de 72 m² con ascensor en zona de alta demanda", zona: "Huelva · alta demanda",
       chips: ["72 m²", "2 hab.", "Ascensor"],
       datos: [["Superficie", "72 m²"], ["Habitaciones", "2 (antes 3)"], ["Baños", "1"], ["Planta", "1ª con ascensor"], ["Año", "1975"]],
@@ -84,7 +84,7 @@
       historia: "Piso exterior con ascensor en una zona de alta demanda. Se redistribuyó para pasar de tres a dos habitaciones, con una reforma contenida.",
       leccion: "Una zona de alta demanda y un edificio con ascensor suelen ser los mejores aliados de un alquiler estable, con una rentabilidad bruta del {bruta}." },
 
-    { id: "venezuela-4", tipo: "alquiler", modo: null, foto: null,
+    { id: "venezuela-4", tipo: "alquiler", modo: "tradicional", foto: null,
       titulo: "Piso de 54 m² y 3 habitaciones en zona de alta demanda", zona: "Huelva · alta demanda",
       chips: ["54 m²", "3 hab.", "1 baño"],
       datos: [["Superficie", "54 m²"], ["Habitaciones", "3"], ["Baños", "1"], ["Planta", "1ª sin ascensor"], ["Año", "1954"]],
@@ -159,14 +159,15 @@
 
   /* ---------- Estadísticas ---------- */
   function stats() {
-    var alq = OPS.filter(function (o) { return o.tipo === "alquiler"; });
-    var brutas = alq.map(function (o) { return o.r.bruta; });
-    var media = brutas.reduce(function (a, b) { return a + b; }, 0) / brutas.length;
+    var media = function (modo) {
+      var b = OPS.filter(function (o) { return o.modo === modo; }).map(function (o) { return o.r.bruta; });
+      return b.reduce(function (a, c) { return a + c; }, 0) / b.length;
+    };
     var flip = OPS.filter(function (o) { return o.tipo === "flip"; })[0];
     $("stats-ops").innerHTML =
       '<div class="celda"><div class="et">Operaciones</div><div class="n">' + OPS.length + "</div></div>" +
-      '<div class="celda"><div class="et">Rentabilidad bruta media en alquiler</div><div class="n verde">' + pct(media) + "</div></div>" +
-      '<div class="celda"><div class="et">Rango en alquiler</div><div class="n verde">' + pct(Math.min.apply(null, brutas)).replace(" %", "") + "–" + pct(Math.max.apply(null, brutas)) + "</div></div>" +
+      '<div class="celda"><div class="et">Bruta media, alquiler tradicional</div><div class="n verde">' + pct(media("tradicional")) + "</div></div>" +
+      '<div class="celda"><div class="et">Bruta media, por habitaciones</div><div class="n verde">' + pct(media("habitaciones")) + "</div></div>" +
       (flip ? '<div class="celda"><div class="et">Compraventa: neta tras impuestos</div><div class="n verde">' + principal(flip).txt + "</div></div>" : "");
   }
 
@@ -206,8 +207,8 @@
 
   function tablaAlquiler(o) {
     var r = o.r;
-    var t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(o.itp)) + fila("Notaría, registro y gestoría", eur(o.notarias)) +
-      fila("Reforma y mobiliario", eur(o.reforma)) + fila("Gestión de la compra y otros gastos", eur(o.gestion)) + fila("Inversión total", eur(r.total), "total") +
+    var t = fila("Precio de compra", eur(o.compra)) + fila("Impuesto ITP (7 %)", eur(o.itp)) + fila("Notaría, registro, gestoría y tasación", eur(o.notarias)) +
+      fila("Reforma y mobiliario", eur(o.reforma)) + fila("Comisiones de intermediarios", eur(o.gestion)) + fila("Inversión total", eur(r.total), "total") +
       fila("Hipoteca (" + Math.round(o.fin.pct * 100) + " %, " + o.fin.plazo + " años al " + (o.fin.interes * 100).toFixed(1).replace(".", ",") + " %)", eur(r.hipoteca)) +
       fila("Capital aportado", eur(r.aportado), "total") +
       fila("Alquiler estimado", eur(o.rentaMes) + "/mes", "total");
@@ -250,7 +251,7 @@
       '<h3 id="m-titulo">' + o.titulo + "</h3>" + '<p class="historia">' + o.historia + "</p>" + ficha + cuerpo +
       '<div class="lec"><b>Qué aprender de esta operación:</b> ' + lec + "</div>" +
       '<p class="nota" style="margin-top:14px">' + nota + " Por privacidad no se indica la dirección.</p>" +
-      '<div style="margin-top:20px"><a class="btn btn-primary" href="https://wa.me/34682459134?text=' +
+      '<div style="margin-top:20px"><a class="btn btn-primary" href="https://wa.me/34641178391?text=' +
       encodeURIComponent("Hola Jessica, he visto la operación \"" + o.titulo + "\" y me gustaría hablar contigo.") + '" target="_blank" rel="noopener">Quiero algo así</a></div>';
   }
 

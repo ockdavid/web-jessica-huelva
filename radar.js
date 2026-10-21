@@ -157,7 +157,7 @@
     var txt = "Hola Jessica, he usado el radar de inversión de tu web. Tengo " + eur(capital) + " de capital, compraría " + fin + ", busco " + obj +
       " y alquilaría " + (sel.mod === "habitaciones" ? "por habitaciones" : "de forma tradicional") + ". Precio alcanzable: " + eur(Math.max(P, 0)) +
       (top.length ? ". Zonas sugeridas: " + top.map(function (z) { return z.nombre; }).join(", ") : "") + ". Me gustaría hablar contigo.";
-    $("wa-perfil").href = "https://wa.me/34682459134?text=" + encodeURIComponent(txt);
+    $("wa-perfil").href = "https://wa.me/34641178391?text=" + encodeURIComponent(txt);
   }
 
   /* ---------- Controles ---------- */
