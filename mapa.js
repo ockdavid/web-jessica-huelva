@@ -18,7 +18,7 @@
     { name: "Tres Ventanas",                                price: null, m: null, t: null,  a: null, max: null, maxv: null,
       nota: "Pendiente de datos: aún no tengo el precio de esta zona." },
     { name: "Fuentepiña",                                   price: null, m: null, t: null,  a: null, max: null, maxv: null,
-      nota: "Pendiente de datos: aún no tengo el precio ni el límite de esta zona." }
+      nota: "Pendiente de datos: aún no tengo el precio de esta zona." }
   ];
 
   var fmt = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); };
